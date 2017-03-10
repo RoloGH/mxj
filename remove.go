@@ -8,6 +8,15 @@ func (mv Map) Remove(path string) error {
 	return remove(m, path)
 }
 
+//Created by rgonzalez
+//Useful when eliminating from large structs
+//RemoveByKey is a Middle Function between Remove and Path
+func (mv Map) RemoveByKey(key string) error {
+	path := mv.PathForKeyShortest(key)
+	err := mv.Remove(path)
+	return err
+}
+
 func remove(m interface{}, path string) error {
 	val, err := prevValueByPath(m, path)
 	if err != nil {

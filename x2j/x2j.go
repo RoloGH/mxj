@@ -7,8 +7,9 @@
 package x2j
 
 import (
-	. "github.com/clbanning/mxj"
 	"io"
+
+	. "github.com/clbanning/mxj"
 )
 
 // FromXml() --> map[string]interface{}
@@ -27,6 +28,7 @@ func MapToXml(m map[string]interface{}) ([]byte, error) {
 
 // FromXml() --> ToJson().
 func XmlToJson(xmlVal []byte, safeEncoding ...bool) ([]byte, error) {
+	IncludeTagSeqNum(false)
 	m, err := NewMapXml(xmlVal)
 	if err != nil {
 		return nil, err

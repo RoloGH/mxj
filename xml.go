@@ -153,7 +153,7 @@ func xmlToMap(doc []byte, r bool) (map[string]interface{}, error) {
 //		marshal'd as <attr_tag>attr</attr_tag> and may be part of a list.
 func PrependAttrWithHyphen(v bool) {
 	if v {
-		attrPrefix = "-"
+		attrPrefix = ""
 		lenAttrPrefix = len(attrPrefix)
 		return
 	}
@@ -231,8 +231,8 @@ func CoerceKeysToLower(b ...bool) {
 // We do this by replacing '`' constant with attrPrefix var, replacing useHyphen with attrPrefix = "",
 // and adding a SetAttrPrefix(s string) function.
 
-var attrPrefix string = `-` // the default
-var lenAttrPrefix int = 1   // the default
+var attrPrefix string = `` // the default
+var lenAttrPrefix int = 1  // the default
 
 // SetAttrPrefix changes the default, "-", to the specified value, s.
 // SetAttrPrefix("") is the same as PrependAttrWithHyphen(false).
@@ -410,16 +410,19 @@ func xmlToMapParser(skey string, a []xml.Attr, p *xml.Decoder, r bool) (map[stri
 				if len(na) > 0 {
 					n[skey] = na
 				} else {
-					n[skey] = "" // empty element
+					n[skey] = nil // empty element
 				}
 			}
 			return n, nil
 		case xml.CharData:
 			// clean up possible noise
 			tt := strings.Trim(string(t.(xml.CharData)), "\t\r\b\n ")
+
 			if len(tt) > 0 {
 				if len(na) > 0 {
-					na["#text"] = cast(tt, r)
+					//Changes by rgonzalez
+					//changed #text value for skey.
+					na[skey] = cast(tt, r)
 				} else if skey != "" {
 					n[skey] = cast(tt, r)
 				} else {

@@ -7,8 +7,9 @@
 package j2x
 
 import (
-	. "github.com/clbanning/mxj"
 	"io"
+
+	. "github.com/clbanning/mxj"
 )
 
 // FromJson() --> map[string]interface{}
@@ -22,12 +23,14 @@ func MapToJson(m map[string]interface{}, safeEncoding ...bool) ([]byte, error) {
 }
 
 // FromJson() --> ToXml().
-func JsonToXml(jsonVal []byte) ([]byte, error) {
+//Changes rgonzalez
+//Added doc parameter
+func JsonToXml(jsonVal []byte, doc string) ([]byte, error) {
 	m, err := NewMapJson(jsonVal)
 	if err != nil {
 		return nil, err
 	}
-	return m.Xml()
+	return m.Xml(doc)
 }
 
 // FromJson() --> ToXmlWriter().
