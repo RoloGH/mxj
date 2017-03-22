@@ -9,7 +9,7 @@ package x2j
 import (
 	"io"
 
-	. "github.com/clbanning/mxj"
+	. "github.com/rologh/mxj"
 )
 
 // FromXml() --> map[string]interface{}

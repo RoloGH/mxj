@@ -9,7 +9,7 @@ package j2x
 import (
 	"io"
 
-	. "github.com/clbanning/mxj"
+	. "github.com/rologh/mxj"
 )
 
 // FromJson() --> map[string]interface{}
